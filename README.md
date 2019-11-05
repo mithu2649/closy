@@ -1,4 +1,4 @@
-#What is Closy?
+# What is Closy?
 
 
 > Closy is a open source Social Network to share and communicate with your friends.
