@@ -6,3 +6,5 @@
 >Open Source Social Network created using php, MySQL, and JavaScript
 
 This WebApp is still in it's intial stage.
+
+- inspired by howCode
