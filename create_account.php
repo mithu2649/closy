@@ -11,11 +11,14 @@
                 if(preg_match('/[a-zA-Z0-9_]+/', $username)){
                     if(strlen($password)>=6 && strlen($password)<=60){
                         if(filter_var($email, FILTER_VALIDATE_EMAIL)){
+                            if(!DB::query('SELECT email FROM users WHERE email=:email', array(':email'=>$email))){
 
-                            DB::query('INSERT INTO users VALUES(\'\',:username, :password, :email)', array(':username'=>$username, ':password'=>password_hash($password, PASSWORD_BCRYPT), ':email'=>$email));
-                            echo "account_created";
-                        }
-                        else{
+                                DB::query('INSERT INTO users VALUES(\'\',:username, :password, :email)', array(':username'=>$username, ':password'=>password_hash($password, PASSWORD_BCRYPT), ':email'=>$email));
+                                echo "account_created";
+                            }else{
+                                echo 'email_already_used';
+                            }
+                        } else{
                             echo 'invalid_email';
                         }
                     }else{
@@ -34,16 +37,9 @@
 
 ?>
 
-
-
-<style>
-    input{
-        display:block;
-    }
-</style>
 <form action="create_account.php" method="post">
     <input type="text" name="username" id="username" placeholder="Username">
     <input type="password" name="password" id="password" placeholder="Password">
     <input type="email" name="email" id="email" placeholder="Email ID">
-    <input type="submit" name="create_account" value="Submit">
+    <input type="submit" name="create_account" id="registerUser" value="Submit">
 </form>
