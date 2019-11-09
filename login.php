@@ -27,7 +27,7 @@
     }
 ?>
 <style>
-    input{display:block;}
+    input{display:block;padding:10px}
 </style>
 <form action="login.php" method="post">
 <input type="text" name="username" id="username" placeholder="Username">
