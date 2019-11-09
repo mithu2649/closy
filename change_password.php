@@ -17,7 +17,7 @@
                         echo 'password_changed_succesfully';
                     }
                 }else{
-                    echo 'passwords_don\'t_match';
+                    echo 'passwords_dont_match';
                 }
             }else{
                 echo 'incorrect_old_password';
