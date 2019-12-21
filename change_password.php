@@ -3,13 +3,11 @@
     include('classes/Login.php');
     $tokenIsValid = False;
 
-
     if(Login::isLoggedIn()){
-
         if(isset($_POST['changepassword'])){
             $old_password =  $_POST['currentpassword'];
             $new_password =  $_POST['newpassword'];
-            $new_password_repeat =  $_POST['newpasswordrepeat'];
+            $new_password_repeat =  $_POST['newl;passwordrepeat'];
             $user_id = Login::isLoggedIn();
             if(password_verify($old_password, DB::query('SELECT password FROM users WHERE id=:user_id', array(':user_id'=>$user_id))[0]['password'])){
                 if($new_password == $new_password_repeat){
@@ -64,5 +62,4 @@
     <input type="password" name="newpassword" id="newpassword" placeholder="new password"><br>
     <input type="password" name="newpasswordrepeat" id="newpasswordrepeat" placeholder="repeat new password"><br>
     <input type="submit" name="changepassword" value="change password">
-
 </form>

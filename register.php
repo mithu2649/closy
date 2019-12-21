@@ -13,7 +13,6 @@
     <input type="email" name="email" id="email" placeholder="Email ID">
     <input type="submit" name="create_account" id="registerUser" value="Submit">
 </form>
-
     <script src="resources/js/registerUser.js"></script>
 </body>
 </html>
