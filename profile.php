@@ -42,6 +42,21 @@
                     //following...
                     $isFollowing = True;
                 }
+
+            }
+
+            if(isset($_POST['post'])){
+                $postbody = $_POST['postbody'];
+                $user_id = Login::isLoggedIn();
+
+                if(strlen($postbody)<1){
+                    die('incorrect_length');
+                }
+                DB::query('INSERT INTO posts VALUES (\'\', :postbody, NOW(), :user_id, 0)', array(':postbody'=>$postbody, ':user_id'=>$user_id));
+
+                //this portion is incomplete...
+                //project to be continued from here...
+               
             }
         }else{
             die('user_not_found');
@@ -60,4 +75,9 @@
             }
         }
     ?>
+</form>
+
+<form action="profile.php?username=<?php echo $username; ?>" method="post">
+        <textarea name="postbody" id="post_body" cols="30" rows="10"></textarea>
+        <input type="submit" name="post" value="Post">
 </form>
