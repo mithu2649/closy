@@ -56,6 +56,7 @@
 
                 //this portion is incomplete...
                 //project to be continued from here...
+                //posts can be inserted to db but not viewed
                
             }
         }else{
