@@ -44,7 +44,7 @@
                         }
                 }
             }else{
-                die('invalid_token');
+                die('token_not_valid');
             }
         }else{      
         die('not_logged_in');
