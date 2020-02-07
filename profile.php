@@ -47,23 +47,32 @@
 
             if(isset($_POST['post'])){
                 $postbody = $_POST['postbody'];
-                $loggedInUserId = Login::isLoggedIn();
+                $user_id = Login::isLoggedIn();
 
                 if(strlen($postbody)<1){
                     die('incorrect_length');
                 }
+                DB::query('INSERT INTO posts VALUES (\'\', :postbody, NOW(), :user_id, 0)', array(':postbody'=>$postbody, ':user_id'=>$user_id));
 
-                if($loggedInUserId == $user_id){
-                    DB::query('INSERT INTO posts VALUES (\'\', :postbody, NOW(), :user_id, 0)', array(':postbody'=>$postbody, ':user_id'=>$user_id));
+            }
+
+            if(isset($_GET['postid'])){
+                if(!DB::query('SELECT user_id FROM post_likes WHERE post_id=:post_id AND user_id=:user_id', array(':post_id'=>$_GET['postid'], ':user_id'=>$user_id))){
+                    DB::query('UPDATE posts SET likes=likes+1 WHERE id=:postid', array(':postid'=>$_GET['postid']));
+                    DB::query('INSERT INTO post_likes VALUES(\'\', :post_id, :user_id)', array(':post_id'=>$_GET['postid'], ':user_id'=>$user_id));    
                 }else{
-                    die('incorrect_user');
+                    echo 'already liked!';
                 }
             }
 
             $dbposts = DB::query('SELECT * FROM posts WHERE user_id=:user_id ORDER BY id DESC', array(':user_id'=>$user_id));
             $posts = "";
             foreach($dbposts as $p){
-                $posts .= htmlspecialchars($p['body']).'<br><hr>';
+                $posts .= $p['body']."
+                <form action='profile.php?username=$username&postid=".$p['id']."' method='post'>
+                    <input type='submit' name='like' value='Like'>
+                </form>
+                <hr>";
             }
         }else{
             die('user_not_found');
@@ -90,5 +99,5 @@
 </form>
 
 <div class="posts">
-        <?php echo $posts; ?>
+        <?php echo $posts;?>
 </div>
