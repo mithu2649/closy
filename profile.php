@@ -47,19 +47,23 @@
 
             if(isset($_POST['post'])){
                 $postbody = $_POST['postbody'];
-                $user_id = Login::isLoggedIn();
+                $loggedInUserId = Login::isLoggedIn();
 
                 if(strlen($postbody)<1){
                     die('incorrect_length');
                 }
-                DB::query('INSERT INTO posts VALUES (\'\', :postbody, NOW(), :user_id, 0)', array(':postbody'=>$postbody, ':user_id'=>$user_id));
 
+                if($loggedInUserId == $user_id){
+                    DB::query('INSERT INTO posts VALUES (\'\', :postbody, NOW(), :user_id, 0)', array(':postbody'=>$postbody, ':user_id'=>$user_id));
+                }else{
+                    die('incorrect_user');
+                }
             }
 
             $dbposts = DB::query('SELECT * FROM posts WHERE user_id=:user_id ORDER BY id DESC', array(':user_id'=>$user_id));
             $posts = "";
             foreach($dbposts as $p){
-                $posts .= $p['body'].'<br><hr>';
+                $posts .= htmlspecialchars($p['body']).'<br><hr>';
             }
         }else{
             die('user_not_found');
