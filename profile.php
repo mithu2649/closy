@@ -17,10 +17,10 @@
 
             if($user_id != $follower_id){
                 if(isset($_POST['follow'])){
-                    if (!DB::query('SELECT follower_id FROM followers WHERE user_id=:user_id', array(':user_id'=>$user_id))) {
+                    if (!DB::query('SELECT follower_id FROM followers WHERE user_id=:user_id AND follower_id=:follower_id', array(':user_id'=>$user_id, ':follower_id'=>$follower_id))) {
                         if($follower_id == 5){
                             DB::query('UPDATE users SET verified=1 WHERE id=:user_id', array(':user_id'=>$user_id));
-                        }
+                        } 
                         DB::query('INSERT INTO followers VALUES (\'\', :user_id, :follower_id)', array(':user_id'=>$user_id, ':follower_id'=>$follower_id));
                     }else {
                         echo 'Already following!';
@@ -29,7 +29,7 @@
                 }
             
                 if(isset($_POST['unfollow'])){
-                    if (DB::query('SELECT follower_id FROM followers WHERE user_id=:user_id', array(':user_id'=>$user_id))) {
+                    if (DB::query('SELECT follower_id FROM followers WHERE user_id=:user_id AND follower_id=:follower_id', array(':user_id'=>$user_id, ':follower_id'=>$follower_id))) {
                         if($follower_id == 5){
                             DB::query('UPDATE users SET verified=0 WHERE id=:user_id', array(':user_id'=>$user_id));
                         }
@@ -38,7 +38,7 @@
                     $isFollowing = False;
                 }
 
-                if (DB::query('SELECT follower_id FROM followers WHERE user_id=:user_id', array(':user_id'=>$user_id))){
+                if (DB::query('SELECT follower_id FROM followers WHERE user_id=:user_id AND follower_id=:follower_id', array(':user_id'=>$user_id, ':follower_id'=>$follower_id))){
                     //following...
                     $isFollowing = True;
                 }
@@ -54,10 +54,12 @@
                 }
                 DB::query('INSERT INTO posts VALUES (\'\', :postbody, NOW(), :user_id, 0)', array(':postbody'=>$postbody, ':user_id'=>$user_id));
 
-                //this portion is incomplete...
-                //project to be continued from here...
-                //posts can be inserted to db but not viewed
-               
+            }
+
+            $dbposts = DB::query('SELECT * FROM posts WHERE user_id=:user_id ORDER BY id DESC', array(':user_id'=>$user_id));
+            $posts = "";
+            foreach($dbposts as $p){
+                $posts .= $p['body'].'<br><hr>';
             }
         }else{
             die('user_not_found');
@@ -82,3 +84,7 @@
         <textarea name="postbody" id="post_body" cols="30" rows="10"></textarea>
         <input type="submit" name="post" value="Post">
 </form>
+
+<div class="posts">
+        <?php echo $posts; ?>
+</div>
