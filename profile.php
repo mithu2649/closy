@@ -102,17 +102,17 @@
             if($isFollowing){
                 echo '<input type="submit" value="unfollow" name="unfollow">';
             }else{
-            echo '<input type="submit" value="follow" name="follow">';
+                echo '<input type="submit" value="follow" name="follow">';
             }
         }
     ?>
 </form>
 
 <form action="profile.php?username=<?php echo $username; ?>" method="post">
-        <textarea name="postbody" id="post_body" cols="30" rows="10"></textarea>
-        <input type="submit" name="post" value="Post">
+    <textarea name="postbody" id="post_body" cols="30" rows="10"></textarea>
+    <input type="submit" name="post" value="Post">
 </form>
 
 <div class="posts">
-        <?php echo $posts;?>
+    <?php echo $posts;?>
 </div>
