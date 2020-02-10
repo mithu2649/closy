@@ -19,7 +19,7 @@
                 setcookie("CLID_", '1', time() + 60 * 60 * 24 * 3, '/', NULL, NULL, TRUE);
 
           }else{
-              echo 'incorrect_password';
+              echo 'incorrect_password : please try again';
           }
         }else{
             echo 'user_not_found';
