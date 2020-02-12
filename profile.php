@@ -9,6 +9,10 @@
     $isFollowing = False;
     $isVerified = False;
 
+    if(!Login::isLoggedIn()){
+        header('location:login.php', 'please login');
+    }
+
     if(isset($_GET['username'])){
         if(DB::query('SELECT username FROM users WHERE username=:username', array(':username'=>$_GET['username']))){
             $username = DB::query('SELECT username FROM users WHERE username=:username', array(':username'=>$_GET['username']))[0]['username'];
