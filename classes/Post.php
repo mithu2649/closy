@@ -6,7 +6,19 @@
             }
 
             if($loggedInUserId == $profileUserId){
-                DB::query('INSERT INTO posts VALUES (\'\', :postbody, NOW(), :user_id, 0)', array(':postbody'=>$postbody, ':user_id'=>$profileUserId));
+                DB::query('INSERT INTO posts VALUES (\'\', :postbody, NOW(), :user_id, 0, \'\')', array(':postbody'=>$postbody, ':user_id'=>$profileUserId));
+            }else{
+                die('incorrect_user : You must be logged in as the same user');
+            }
+        }
+
+        public static function createImagePost($postbody, $loggedInUserId, $profileUserId){
+            
+            if($loggedInUserId == $profileUserId){
+                
+                DB::query('INSERT INTO posts VALUES (\'\', :postbody, NOW(), :user_id, 0, \'\')', array(':postbody'=>$postbody, ':user_id'=>$profileUserId));
+                $post_id = DB::query('SELECT id FROM posts WHERE user_id = :user_id ORDER BY id DESC LIMIT 1', array(':user_id'=>$loggedInUserId))[0]['id'];
+                return $post_id;
             }else{
                 die('incorrect_user : You must be logged in as the same user');
             }
