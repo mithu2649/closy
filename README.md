@@ -11,7 +11,7 @@ This WebApp is still in it's intial stage and is been worked on as a college pro
 
 🔹Clone the repo
 
-<pre>git clone https://github.com/mithu2649/DocGO.git</pre>
+<pre>git clone https://github.com/mithu2649/closy.git</pre>
 
 🔹Start MySQL and Apache Server
 
