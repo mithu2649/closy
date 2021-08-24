@@ -1,4 +1,0 @@
-https://imgur.com/#access_token=a8b246696dd2b4b1fd26343b4b42ec5e321bbff0&expires_in=315360000&token_type=bearer&refresh_token=f0dee60c668b74c6f1e89d7ef1605bc1567f5e50&account_username=mithu2649&account_id=123879627
-
-refresh_token=f0dee60c668b74c6f1e89d7ef1605bc1567f5e50
-access_token=a8b246696dd2b4b1fd26343b4b42ec5e321bbff0
